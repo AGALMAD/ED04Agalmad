@@ -8,6 +8,14 @@
 
 #include "func.h"
 
+int funcMejora1(){
+
+    return 0;
+}
+
+
+
+
 /********* FUNCIONES INTERNAS ********/
 
 /* Devuelve el tamaño que tiene la lista*/
