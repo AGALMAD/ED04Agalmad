@@ -68,7 +68,7 @@ int main(){
                     scanf("%f",&aumento);
                 } while (aumento <= 0);
 
-                errores = aumentaKilometraje(&listaVehiculos, id ,aumento);
+                errores = aumentaKilometraje(listaVehiculos, id ,aumento);
                 /* Se imprimen los errores*/
                 if (errores == 1)
                     printf("\nLa lista esta vacia");

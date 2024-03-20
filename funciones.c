@@ -336,25 +336,25 @@ int bajaVehiculo(Tnodo **lista, int id){
 
 /************** APARTADO 3 INCREMENTAR KILOMETRAJE DE VEHICULO******************/
 
-int aumentaKilometraje(Tnodo **lista, int id, float aumento){
+int aumentaKilometraje(Tnodo *lista, int id, float aumento){ //Elimina vehiculos si se pasa por referencia
 
     /* Si la lista está vacia no se eliminan vehiculos*/
-    if (vacia(*lista))
+    if (vacia(lista))
         return 1;
 
     /* Si el id no está en la lista lo dice*/
-    if (!idUsado(*lista,id))
+    if (!idUsado(lista,id))
         return 2;
 
     /* Recorre la lista en busca del id*/
-    while ((*lista)->vehiculo.idVehiculo != id)
+    while (lista->vehiculo.idVehiculo != id)
     {
-        *lista = (*lista)->sig;
+        lista = lista->sig;
     }
     
 
     /* Aumenta los kilomentros*/
-    (*lista)->vehiculo.kms += aumento;
+    lista->vehiculo.kms += aumento;
 
     return 0;
 
@@ -403,7 +403,7 @@ int mostrarPotenciaMayor(Tnodo *lista, int potencia){
 /************** APARTADO 6 VOLVAR A FICHERO DE TEXTO******************/
 
 
-int copiaSeguridadFichero(Tnodo *lista, char *nombreFichero ){
+int copiaSeguridadFichero(Tnodo *lista, char *nombreFichero ){ /* No imprime igual*/
 
     FILE *ptrFile; /* Puntero al fichero*/
 
@@ -419,19 +419,17 @@ int copiaSeguridadFichero(Tnodo *lista, char *nombreFichero ){
         return 2;
 
 
-    fprintf(ptrFile, "-------------------------- LISTA DE VEHICULOS --------------------------\n");
     
     /*Imprime todos los datos de la lista al fichero*/
     while (lista != NULL)
     {
-        fprintf(ptrFile,"\tID : %d\n",lista->vehiculo.idVehiculo);
-        fprintf(ptrFile,"\tNOMBRE : %s\n",lista->vehiculo.marcaModelo);
-        fprintf(ptrFile,"\tPOTENCIA : %d\n",lista->vehiculo.potencia);
-        fprintf(ptrFile,"\tKILOMETROS : %f\n",lista->vehiculo.kms);
+        fprintf(ptrFile,"%d:",lista->vehiculo.idVehiculo);
+        fprintf(ptrFile,"%s:",lista->vehiculo.marcaModelo);
+        fprintf(ptrFile,"%d:",lista->vehiculo.potencia);
+        fprintf(ptrFile,"%.2f:",lista->vehiculo.kms);
         char carga[TAM_NOMBRE];
         recogeCarga(lista->vehiculo,carga);
-        fprintf(ptrFile,"\tCARGA : %s\n",carga);
-        fprintf(ptrFile, "\n-------------------------------------------------------------------------\n");
+        fprintf(ptrFile,"%s\n",carga);
 
         lista = lista->sig; 
     }
@@ -445,7 +443,7 @@ int copiaSeguridadFichero(Tnodo *lista, char *nombreFichero ){
 /************** APARTADO 7 RESTAURAR DESDE FICHERO DE TEXTO******************/
 
 /* Recoge los datos de una lineas de fichero de texto y lo introduce al vehiculo*/
-void recogeDatosFichero(char datos[MAXCADENA], Tvehiculo *vehiculo){
+void recogeDatosFichero(char datos[MAXCADENA], Tvehiculo *vehiculo){ 
 
     /* Divide la cadena del fichero en tokens */
     char *ptrDatos = strtok(datos,DELIMITER);

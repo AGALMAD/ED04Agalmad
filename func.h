@@ -79,7 +79,7 @@ int llena(Tnodo *lista);
 int bajaVehiculo(Tnodo **lista, int id);
 
 /* 3. Aumenta el kilometraje de un vehiculo, pasandole el id y el aumento*/
-int aumentaKilometraje(Tnodo **lista, int id, float aumento);
+int aumentaKilometraje(Tnodo *lista, int id, float aumento);
 
 /* 4. Muestra todos los vehiculos*/
 int mostrarVehiculos(Tnodo *lista);
